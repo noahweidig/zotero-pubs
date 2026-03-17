@@ -286,6 +286,32 @@
       height: 1.2rem;
     }
 
+    .hire-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--nav-item-color);
+      text-decoration: none;
+      border: 1px solid var(--nav-border);
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      white-space: nowrap;
+      transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .hire-button:hover {
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .light-theme .hire-button:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
     .search-shortcut {
       display: none;
       font-family: inherit;
@@ -1021,6 +1047,8 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
+
+      <a class="hire-button" href="https://noahweidig.com/hire">Hire Me →</a>
 
       <button class="nav-toggle hamburger-toggle" id="menu-toggle" aria-label="Open menu" title="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
