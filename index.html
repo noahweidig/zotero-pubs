@@ -106,29 +106,8 @@
       border-radius: 4px;
     }
 
-    .skip-link {
-      position: absolute;
-      top: -100px;
-      left: 1rem;
-      z-index: 1000;
-      padding: 0.75rem 1.25rem;
-      background: var(--accent-primary);
-      color: var(--bg-color);
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 0 0 8px 8px;
-      transition: top 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
     #main-content:focus {
       outline: none;
-    }
-
-    .skip-link:focus {
-      top: 0;
-      outline: 2px solid var(--text-color);
-      outline-offset: 2px;
     }
 
     /* ── Background blobs ── */
@@ -894,7 +873,7 @@
 
     /* ── Print Styles ── */
     @media print {
-      .nav, .footer, #search-overlay, .skip-link, .bg-blobs, #expand-toggle, .nav-toggle, #theme-toggle, .controls-wrapper {
+      .nav, .footer, #search-overlay, .bg-blobs, #expand-toggle, .nav-toggle, #theme-toggle, .controls-wrapper {
         display: none !important;
       }
       .main-wrapper {
@@ -1020,8 +999,6 @@
   </style>
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to content</a>
-
   <!-- Background blobs -->
   <div class="bg-blobs">
     <div class="bg-blob bg-blob--1"></div>
@@ -1544,9 +1521,9 @@ For fire managers in the southern region, this study supports the use of prescri
         });
 
         // Reset keyboard focus to the top of the document
-        const skipLink = document.querySelector('.skip-link');
-        if (skipLink) {
-          skipLink.focus({ preventScroll: true });
+        const mainContent = document.querySelector('#main-content');
+        if (mainContent) {
+          mainContent.focus({ preventScroll: true });
         }
       });
     }
