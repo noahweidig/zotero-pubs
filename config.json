@@ -1,0 +1,25 @@
+{
+  "zoteroUserId": "11988712",
+  "libraryType": "users",
+  "publicationsEndpoint": true,
+  "collectionKey": "",
+  "citationStyle": "apa",
+  "groupBy": "type",
+  "sortBy": "-year",
+  "theme": "default",
+  "displayName": "Publications",
+  "ownerLastName": "Weidig",
+  "fullnames": false,
+  "limit": 200,
+  "typeOrder": [
+    "Journal Articles",
+    "Thesis",
+    "Presentations",
+    "Webinars",
+    "Peer Reviews",
+    "Media Coverage"
+  ],
+  "showSearch": true,
+  "showAbstracts": true,
+  "showCopyButton": true
+}

@@ -1,84 +1,175 @@
-<div align="center">
+# zotero-pubs
 
-<img src="verification_hero.png" alt="Noah Weidig — Research" width="100%" />
+A **BibBase alternative** built on GitHub Pages. Fork the repo, point it at your
+public Zotero library, push — and you get a free, fast, ad-free bibliography
+page you can embed in any website via `<iframe>` or link to directly.
 
-<br><br>
+No servers. No JavaScript fetched at runtime. No external dependencies on
+page load. A GitHub Action regenerates `embed.html` on a schedule and on
+demand.
 
-# Noah Weidig · Research
+---
 
-**Wildfire ecology, landscape dynamics, and the wildland-urban interface.**
+## Quick start
 
-[![Live Site](https://img.shields.io/badge/noahweidig.github.io-Research-a78bfa?style=for-the-badge&logo=github)](https://noahweidig.github.io/pubs)
+1. **Fork** this repo (or click **Use this template**).
+2. Rename your fork to `zotero-pubs` (recommended) or anything else.
+3. **Make your Zotero library public** (see below).
+4. Edit **`config.json`** with your Zotero user ID and preferences.
+5. Enable **GitHub Pages** in repo Settings → Pages → Deploy from branch
+   `main` / root.
+6. (Optional) Run the workflow once manually: **Actions → Update Zotero
+   Publications → Run workflow**.
+7. Visit `https://<your-username>.github.io/<repo>/embed.html` and embed it.
 
-</div>
+---
 
-<br>
+## Making your Zotero library public
 
-This repository powers the **Research** section of my personal site. A scheduled GitHub Action pulls citation data from my [Zotero](https://www.zotero.org/) library, renders it into a static page, and deploys it to GitHub Pages — no client-side API calls, no JavaScript frameworks, just fast, clean HTML.
+You need either a **publications page** (recommended, no API key needed) or a
+**public group library**:
 
-<br>
+### Option A — My Publications (per-user, easiest)
 
-## How It Works
+1. In Zotero desktop, drag the items you want public into the **My
+   Publications** collection (Zotero auto-creates it).
+2. Zotero will ask you to confirm sharing terms — accept.
+3. Visit `https://www.zotero.org/<your-username>/publications` to confirm.
+4. Find your numeric **user ID** at
+   <https://www.zotero.org/settings/security> → *Applications* → "Your userID
+   for use in API calls is: `1234567`".
+5. Put that number in `config.json` → `zoteroUserId`.
 
-```
-Zotero Library ──▸ GitHub Action (every 14 days) ──▸ index.html ──▸ GitHub Pages
-```
+### Option B — Public group library
 
-1. A **cron-triggered workflow** fetches my publications from the Zotero Web API.
-2. `scripts/update-pubs.js` sanitizes the data and injects formatted entries into `index.html`.
-3. The updated file is committed automatically and served via **GitHub Pages**.
+1. Create a public group at <https://www.zotero.org/groups/new>.
+2. Set **Library Reading: Anyone**.
+3. Get the group **ID** from the group settings URL.
+4. In `config.json` set `"libraryType": "groups"`, `zoteroUserId` to the
+   group ID, and `"publicationsEndpoint": false`.
 
-Visitors never hit an external API. The page loads instantly and works offline.
+### Option C — A specific collection in a public library
 
-<br>
+Set `"collectionKey"` in `config.json` to the collection's short key (8-char
+alphanumeric, visible in the Zotero web URL).
 
-## Stack
+---
 
-| Layer | Details |
-|------:|:--------|
-| **Data** | [Zotero Web API v3](https://www.zotero.org/support/dev/web_api/v3/start) — My Research collection |
-| **Build** | Node.js script with `node-fetch` + `sanitize-html` |
-| **CI/CD** | GitHub Actions on a 14-day cron schedule |
-| **Hosting** | GitHub Pages — zero cost, zero maintenance |
-| **Design** | Dark & light themes, Inter typeface, CSS-only interactions |
+## Embedding
 
-<br>
+### Iframe (any site — easiest)
 
-## Features
-
-- **Dark / Light mode** with smooth toggle
-- **Expandable abstracts** for every entry
-- **One-click citation copy** and direct DOI links
-- **Search & filter** with real-time results
-- **Six swappable CSS themes** — academic, modern, minimal, nature, dark, and default
-- **XSS-safe** — all Zotero output is sanitized before render
-
-<br>
-
-## Repository Layout
-
-```
-.
-├── index.html               # The publication page (auto-updated)
-├── scripts/
-│   ├── update-pubs.js       # Zotero fetch → HTML injection
-│   └── sanitize.js          # XSS sanitization layer
-├── themes/                  # Drop-in stylesheets
-│   ├── default.css
-│   ├── academic.css
-│   ├── modern.css
-│   ├── dark.css
-│   ├── minimal.css
-│   └── nature.css
-├── assets/
-│   ├── icon.png
-│   └── logo.svg
-└── .github/workflows/
-    └── update.yml           # Scheduled CI pipeline
+```html
+<iframe
+  src="https://<your-username>.github.io/zotero-pubs/embed.html"
+  style="width:100%;height:800px;border:0;"
+  loading="lazy"
+  title="Publications"></iframe>
 ```
 
-<br>
+### Direct link
+
+Link to `embed.html` (clean, minimal) or `index.html` (your full personal
+site, if you customize it).
+
+### Server-side include (Apache SSI)
+
+```html
+<!--#include virtual="https://<your-username>.github.io/zotero-pubs/embed.html" -->
+```
+
+### PHP include
+
+```php
+<?php echo file_get_contents("https://<your-username>.github.io/zotero-pubs/embed.html"); ?>
+```
+
+---
+
+## `config.json` options
+
+| Key | Values | Description |
+|-----|--------|-------------|
+| `zoteroUserId` | string of digits | Your numeric Zotero user ID, or group ID. |
+| `libraryType` | `"users"` \| `"groups"` | Which API endpoint to use. |
+| `publicationsEndpoint` | `true` \| `false` | If `true` (and `users`), uses `/publications/items` (My Publications). |
+| `collectionKey` | `""` or 8-char key | Limit to a specific collection. |
+| `citationStyle` | see below | CSL style used to format every entry. |
+| `groupBy` | `"type"` \| `"year"` \| `"author"` \| `"none"` | How to group entries on the page. |
+| `sortBy` | `"-year"`, `"year"`, `"title"`, `"author"` | Sort order within each group. Prefix `-` for descending. |
+| `theme` | one of the files in `themes/` (without `.css`) | Stylesheet applied to `embed.html`. |
+| `displayName` | string | `<title>` of the embed page. |
+| `ownerLastName` | string | Author surname to bold in every entry. |
+| `fullnames` | `true` \| `false` | Reserved; CSL controls name formatting. |
+| `limit` | 1 – 500 | Max items pulled from Zotero. |
+| `typeOrder` | array of strings | Order of section headings when `groupBy: "type"`. |
+| `showSearch` | bool | Adds a live filter box. |
+| `showAbstracts` | bool | Renders abstracts inside a `<details>` block. |
+| `showCopyButton` | bool | Shows the per-entry citation copy button. |
+
+### Supported citation styles
+
+Any CSL style name accepted by the Zotero API. Common choices:
+
+- `apa` — APA 7th
+- `modern-language-association` — MLA 9th
+- `chicago-author-date` — Chicago (author-date)
+- `chicago-note-bibliography` — Chicago (notes & bibliography)
+- `ieee`
+- `vancouver`
+- `nature`
+- `harvard1`
+- `american-medical-association`
+- `council-of-science-editors`
+
+The script allowlists these by default; add more in `scripts/update-pubs.js`
+(`VALID_STYLES`) if you need a niche style.
+
+---
+
+## Themes
+
+Drop-in stylesheets in `themes/`:
+
+| File | Vibe |
+|------|------|
+| `default.css` | Plain, paper-like default |
+| `academic.css` | Serif, classic academic |
+| `modern.css` | Sans, accent color, cards |
+| `minimal.css` | Whitespace + DM Sans |
+| `nature.css` | Earth tones |
+| `dark.css` | Dark background |
+
+Switch by setting `"theme"` in `config.json`. Add your own by dropping a new
+`.css` file into `themes/` and naming it in `config.json`.
+
+---
+
+## How it works
+
+```
+Zotero library  ─►  GitHub Action (cron + manual)  ─►  embed.html  ─►  GitHub Pages  ─►  <iframe>
+```
+
+1. `scripts/update-pubs.js` reads `config.json`.
+2. It fetches your library from the Zotero Web API with the chosen CSL style.
+3. Output is sanitized (`scripts/sanitize.js` — XSS-safe), grouped, sorted,
+   linkified, and written into `embed.html` (and `index.html` if you keep it).
+4. A scheduled workflow (`.github/workflows/update.yml`) commits the change.
+
+---
+
+## Manual run
+
+```sh
+npm install
+node scripts/update-pubs.js
+```
+
+Open `embed.html` in a browser.
+
+---
 
 ## License
 
-[MIT](LICENSE)
+MIT
