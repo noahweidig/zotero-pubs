@@ -64,11 +64,22 @@ For fire managers in the southern region, this study supports the use of prescri
 </main>
 <script>
 (() => {
+  const nodes = [...document.querySelectorAll('.type-heading, .entry')];
+  const groups = [];
+  let cur = null;
+  nodes.forEach(el => {
+    if (el.classList.contains('type-heading')) { cur = { h: el, es: [] }; groups.push(cur); }
+    else if (cur) cur.es.push(el);
+  });
   const q = document.getElementById('pub-search');
   if (q) q.addEventListener('input', () => {
     const v = q.value.toLowerCase();
     document.querySelectorAll('.entry').forEach(el => {
       el.style.display = el.textContent.toLowerCase().includes(v) ? '' : 'none';
+    });
+    groups.forEach(g => {
+      const any = g.es.some(e => e.style.display !== 'none');
+      g.h.classList.toggle('is-hidden', !any);
     });
   });
   document.querySelectorAll('.copy-btn').forEach(btn => {
