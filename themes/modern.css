@@ -1,21 +1,10 @@
 /*
- * Modern Theme
- *
- * A contemporary card-based layout with soft shadows, rounded
- * corners, and smooth interactions. Ideal for personal academic
- * websites and portfolios.
- *
- * Usage – replace the <style> block in index.html with:
- *   <link rel="stylesheet" href="themes/modern.css">
+ * Modern Theme — refined for zotero-pubs embed.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -23,88 +12,160 @@ body {
   line-height: 1.7;
   color: #334155;
   max-width: 960px;
-  margin: 48px auto;
+  margin: 32px auto;
   padding: 0 24px;
   background: #f8fafc;
 }
 
+/* ---- Search ---- */
+#pub-search {
+  width: 100%;
+  padding: 0.6em 0.9em;
+  font: inherit;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  margin-bottom: 1.5em;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+#pub-search:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+}
+
 /* ---- Section headings ---- */
 .type-heading {
+  display: block;
   font-size: 1.1em;
   font-weight: 700;
   color: #0f172a;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin: 2.4em 0 1em;
-  padding-bottom: 0.5em;
+  margin: 2em 0 1em;
+  padding-bottom: 0.45em;
   border-bottom: 3px solid #6366f1;
-  display: inline-block;
 }
+.type-heading:first-of-type { margin-top: 0.5em; }
+.type-heading.is-hidden { display: none; }
 
 /* ---- Entry card ---- */
 .entry {
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: 10px;
-  padding: 1.2em 1.4em;
-  margin-bottom: 1em;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 1.1em 1.3em;
+  margin-bottom: 0.9em;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.2s, transform 0.2s;
 }
-
 .entry:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transform: translateY(-1px);
 }
 
 /* ---- Highlighted author ---- */
-#pubs strong {
-  color: #6366f1;
-  font-weight: 600;
-}
+.entry strong { color: #6366f1; font-weight: 600; }
 
-/* ---- Links ---- */
-a {
-  color: #6366f1;
+/* ---- Citation body ---- */
+.csl-bib-body {
+  line-height: 1.6 !important;
+  padding-left: 0 !important;
+  text-indent: 0 !important;
+}
+.csl-entry { padding-left: 0; text-indent: 0; }
+
+/* ---- Links inside citation ---- */
+.csl-entry a {
+  color: #4f46e5;
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.15s;
+  word-break: break-word;
+}
+.csl-entry a:hover, .csl-entry a:focus { text-decoration: underline; }
+
+/* ---- Action row ---- */
+.entry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.8em;
 }
 
-a:hover,
-a:focus {
+/* ---- Buttons (View Online / Copy) ---- */
+.entry-link-btn,
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font: inherit;
+  font-size: 0.82em;
+  font-weight: 500;
+  line-height: 1;
+  padding: 0.45em 0.8em;
+  border-radius: 6px;
+  border: 1px solid #6366f1;
+  background: #6366f1;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.entry-link-btn:hover,
+.entry-link-btn:focus {
+  background: #4338ca;
+  border-color: #4338ca;
+  color: #fff;
+  text-decoration: none;
+}
+.copy-btn {
+  background: #fff;
+  color: #4f46e5;
+}
+.copy-btn:hover, .copy-btn:focus {
+  background: #eef2ff;
   color: #4338ca;
-  text-decoration: underline;
+}
+.copy-btn svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+.webinar-link-btn {
+  background: #db2777;
+  border-color: #db2777;
+}
+.webinar-link-btn:hover, .webinar-link-btn:focus {
+  background: #9d174d;
+  border-color: #9d174d;
 }
 
 /* ---- Abstract toggle ---- */
-details {
-  margin-top: 0.6em;
-}
-
+details { margin: 0; flex-basis: 100%; }
 summary {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
-  font-size: 0.85em;
+  font-size: 0.8em;
   font-weight: 500;
   color: #6366f1;
-  padding: 0.3em 0.7em;
+  padding: 0.4em 0.75em;
   border-radius: 6px;
   background: #eef2ff;
+  list-style: none;
   transition: background 0.15s, color 0.15s;
 }
-
-summary:hover {
-  background: #e0e7ff;
-  color: #4338ca;
+summary::-webkit-details-marker { display: none; }
+summary::before {
+  content: "▸";
+  font-size: 0.9em;
+  transition: transform 0.15s;
 }
-
-details[open] summary {
-  margin-bottom: 0.6em;
-}
-
+details[open] summary::before { transform: rotate(90deg); }
+summary:hover { background: #e0e7ff; color: #4338ca; }
+details[open] summary { margin-bottom: 0.6em; }
 details p {
   font-size: 0.9em;
   color: #475569;
@@ -116,26 +177,8 @@ details p {
   border-left: 4px solid #6366f1;
 }
 
-/* ---- CSL overrides ---- */
-.csl-bib-body {
-  line-height: 1.7 !important;
-  padding-left: 0 !important;
-  text-indent: 0 !important;
-}
-
-.csl-entry {
-  padding-left: 0;
-  text-indent: 0;
-}
-
 /* ---- Responsive ---- */
 @media (max-width: 640px) {
-  body {
-    margin: 24px auto;
-    padding: 0 16px;
-  }
-
-  .entry {
-    padding: 1em;
-  }
+  body { margin: 16px auto; padding: 0 14px; }
+  .entry { padding: 0.9em 1em; }
 }
