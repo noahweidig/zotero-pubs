@@ -6,7 +6,7 @@
   "citationStyle": "mla",
   "groupBy": "type",
   "sortBy": "-year",
-  "theme": "modern",
+  "theme": "default",
   "displayName": "Publications",
   "ownerLastName": "Weidig",
   "fullnames": false,
