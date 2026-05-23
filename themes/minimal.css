@@ -100,6 +100,30 @@ details p {
   padding: 0;
 }
 
+/* ---- Action buttons ---- */
+.entry-actions {
+  display: flex; flex-wrap: wrap; gap: 0.5em; align-items: center;
+  margin-top: 0.7em;
+}
+.entry-link-btn, .copy-btn {
+  display: inline-flex; align-items: center; gap: 0.35em;
+  font: inherit; font-size: 0.82em; font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.4em 0.85em; border-radius: 4px;
+  border: 1px solid #e5e7eb; background: transparent; color: #6b7280;
+  cursor: pointer; text-decoration: none; line-height: 1.2;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.entry-link-btn:hover, .copy-btn:hover,
+.entry-link-btn:focus, .copy-btn:focus {
+  color: #111827; border-color: #111827; background: transparent;
+  text-decoration: none;
+}
+.copy-btn svg { width: 13px; height: 13px; flex-shrink: 0; opacity: 0.7; }
+.copy-btn.copied { color: #111827; border-color: #111827; }
+.entry-actions > details { margin: 0; flex-basis: 100%; }
+.entry-actions > details > summary { padding: 0.4em 0; }
+
 /* ---- CSL overrides ---- */
 .csl-bib-body {
   line-height: 1.8 !important;
@@ -136,7 +160,7 @@ details p {
     border-bottom-color: #ccc;
   }
 
-  details {
+  details, .entry-actions {
     display: none;
   }
 }

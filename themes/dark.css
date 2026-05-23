@@ -112,6 +112,29 @@ details p {
   border-left: 3px solid #7dd3fc;
 }
 
+/* ---- Action buttons ---- */
+.entry-actions {
+  display: flex; flex-wrap: wrap; gap: 0.5em; align-items: center;
+  margin-top: 0.7em;
+}
+.entry-link-btn, .copy-btn {
+  display: inline-flex; align-items: center; gap: 0.35em;
+  font: inherit; font-size: 0.82em; font-weight: 500;
+  padding: 0.45em 0.85em; border-radius: 6px;
+  border: 1px solid #475569; background: #0f172a; color: #bae6fd;
+  cursor: pointer; text-decoration: none; line-height: 1.2;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.entry-link-btn:hover, .copy-btn:hover,
+.entry-link-btn:focus, .copy-btn:focus {
+  background: #7dd3fc; color: #0f172a; border-color: #7dd3fc;
+  text-decoration: none;
+}
+.copy-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+.copy-btn.copied { background: #7dd3fc; color: #0f172a; border-color: #7dd3fc; }
+.entry-actions > details { margin: 0; flex-basis: 100%; }
+.entry-actions > details > summary { padding: 0.45em 0.85em; }
+
 /* ---- CSL overrides ---- */
 .csl-bib-body {
   line-height: 1.75 !important;

@@ -46,3 +46,29 @@ summary {
 a {
   color: teal;
 }
+
+.entry-actions {
+  display: flex; flex-wrap: wrap; gap: 0.4em; align-items: center;
+  margin-top: 0.5em;
+}
+.entry-link-btn, .copy-btn {
+  display: inline-flex; align-items: center; gap: 0.35em;
+  font: inherit; font-size: 0.82em; font-weight: 600;
+  padding: 0.4em 0.85em; border-radius: 6px;
+  border: 1px solid #b2d8d8; background: #f0f7f7; color: teal;
+  cursor: pointer; text-decoration: none; line-height: 1.2;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.entry-link-btn:hover, .copy-btn:hover,
+.entry-link-btn:focus, .copy-btn:focus {
+  background: teal; color: #fff; border-color: teal; text-decoration: none;
+}
+.copy-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+.copy-btn.copied { background: teal; color: #fff; border-color: teal; }
+.entry-actions > details { margin: 0; flex-basis: 100%; }
+.entry-actions > details > summary { margin-left: 0; }
+
+@media (max-width: 640px) {
+  body { margin: 16px auto; padding: 0 14px; }
+  .entry-link-btn, .copy-btn { padding: 0.55em 0.9em; font-size: 0.85em; }
+}
