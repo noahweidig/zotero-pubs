@@ -107,6 +107,35 @@ details p {
   line-height: 1.75 !important;
 }
 
+/* ---- Action buttons ---- */
+.entry-actions {
+  display: flex; flex-wrap: wrap; gap: 0.5em; align-items: center;
+  margin-top: 0.6em; text-indent: 0;
+}
+.entry-link-btn, .copy-btn {
+  display: inline-flex; align-items: center; gap: 0.35em;
+  font-family: 'Source Sans Pro', sans-serif; font-size: 0.8em; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 0.4em 0.85em; border-radius: 3px;
+  border: 1px solid #c9b8b8; background: #fff; color: #8b0000;
+  cursor: pointer; text-decoration: none; line-height: 1.2;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.entry-link-btn:hover, .copy-btn:hover,
+.entry-link-btn:focus, .copy-btn:focus {
+  background: #8b0000; color: #fff; border-color: #8b0000;
+  text-decoration: none; border-bottom: 1px solid #8b0000;
+}
+.copy-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+.copy-btn.copied { background: #8b0000; color: #fff; border-color: #8b0000; }
+.entry-actions > details { margin: 0; flex-basis: 100%; }
+
+@media (max-width: 640px) {
+  body { margin: 24px auto; padding: 0 16px; }
+  .entry { padding-left: 0; text-indent: 0; }
+  .entry-link-btn, .copy-btn { padding: 0.55em 0.9em; }
+}
+
 /* ---- Print styles ---- */
 @media print {
   body {
@@ -120,7 +149,7 @@ details p {
     border-bottom: none;
   }
 
-  details {
+  details, .entry-actions {
     display: none;
   }
 }
